@@ -4,6 +4,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
+import LandingPage from './pages/LandingPage';
+import MessagesInbox from './pages/MessagesInbox';
+import NotificationsView from './pages/NotificationsView';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import SystemLogsPage from './pages/admin/SystemLogsPage';
 import SystemSettingsPage from './pages/admin/SystemSettingsPage';
@@ -20,8 +23,15 @@ function App() {
     <AuthProvider>
       <Routes>
         {/* Public Routes */}
+        <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+        
+        {/* Protected Routes - All Authenticated Users */}
+        <Route element={<ProtectedRoute allowedRoles={['admin', 'instructor', 'student']} />}>
+          <Route path="/messages" element={<MessagesInbox />} />
+          <Route path="/notifications" element={<NotificationsView />} />
+        </Route>
         
         {/* Admin Routes */}
         <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
@@ -43,7 +53,6 @@ function App() {
         </Route>
 
         <Route path="/unauthorized" element={<Unauthorized />} />
-        <Route path="/" element={<Navigate to="/login" replace />} />
       </Routes>
     </AuthProvider>
   );
