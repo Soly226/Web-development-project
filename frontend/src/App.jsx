@@ -23,8 +23,15 @@ import StudentProfileView from './pages/StudentProfileView';
 import InsideCourseAssignments from './pages/course/InsideCourseAssignments';
 import InsideCourseGradesTab from './pages/course/InsideCourseGradesTab';
 
+// Instructor Pages (Seliem)
+import CreateCourseStep1 from './pages/instructor/CreateCourseStep1';
+import CreateCourseStep2 from './pages/instructor/CreateCourseStep2';
+import InsideCourseLectures from './pages/instructor/InsideCourseLectures';
+import InsideCourseStream from './pages/instructor/InsideCourseStream';
+import InstructorAnalytics from './pages/instructor/InstructorAnalytics';
+import InstructorAssignmentPanel from './pages/instructor/InstructorAssignmentPanel';
+
 // Remaining Placeholders
-const InstructorDashboard = () => <div className="p-8"><h1>Instructor Dashboard</h1><p>Work for Seliem.</p></div>;
 const Unauthorized = () => <div className="p-8"><h1>403 - Unauthorized</h1><p>You do not have access to this page.</p></div>;
 
 function App() {
@@ -53,7 +60,12 @@ function App() {
 
         {/* Instructor Routes */}
         <Route element={<ProtectedRoute allowedRoles={['instructor']} />}>
-          <Route path="/instructor" element={<InstructorDashboard />} />
+          <Route path="/instructor/create-course/step-1" element={<CreateCourseStep1 />} />
+          <Route path="/instructor/create-course/step-2" element={<CreateCourseStep2 />} />
+          <Route path="/instructor/course/:id/lectures" element={<InsideCourseLectures />} />
+          <Route path="/instructor/course/:id/stream" element={<InsideCourseStream />} />
+          <Route path="/instructor/analytics" element={<InstructorAnalytics />} />
+          <Route path="/instructor/assignments" element={<InstructorAssignmentPanel />} />
         </Route>
 
         {/* Student Routes */}
