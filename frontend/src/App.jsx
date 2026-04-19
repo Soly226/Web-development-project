@@ -5,6 +5,12 @@ import ProtectedRoute from './components/ProtectedRoute';
 import LoginPage from './pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
 import LandingPage from './pages/LandingPage';
+
+// Basel's Pages
+import MessagesInboxPage from './pages/messages/MessagesInboxPage';
+import NotificationsPage from './pages/notifications/NotificationsPage';
+
+// Admin Pages
 import AdminDashboard from './pages/admin/AdminDashboard';
 import SystemLogsPage from './pages/admin/SystemLogsPage';
 import SystemSettingsPage from './pages/admin/SystemSettingsPage';
@@ -12,12 +18,7 @@ import EmailTemplatesPage from './pages/admin/EmailTemplatesPage';
 import AdminReportsPage from './pages/admin/AdminReportsPage';
 import UserManagementPage from './pages/admin/UserManagementPage';
 
-// Basel's Pages
-import LandingPage from './pages/LandingPage';
-import MessagesInboxPage from './pages/messages/MessagesInboxPage';
-import NotificationsPage from './pages/notifications/NotificationsPage';
-
-// Magdy's Pages
+// Magdy's Student Pages
 import StudentDashboard from './pages/student/StudentDashboard';
 import MyCoursesPage from './pages/student/MyCoursesPage';
 import MyGradesPage from './pages/student/MyGradesPage';
@@ -29,7 +30,7 @@ import StudentProfilePage from './pages/student/StudentProfilePage';
 import InsideCourseLecturesPage from './pages/student/InsideCourseLecturesPage';
 import InsideCourseStreamPage from './pages/student/InsideCourseStreamPage';
 
-// Seliem's Pages (Instructor)
+// Seliem's Instructor Pages
 import InstructorDashboard from './pages/instructor/InstructorDashboard';
 import InstructorAssignmentPanel from './pages/instructor/InstructorAssignmentPanel';
 import CreateCourseStep1 from './pages/instructor/CreateCourseStep1';
@@ -53,6 +54,7 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+
         {/* Admin Routes */}
         <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
           <Route path="/admin" element={<AdminDashboard />} />
@@ -76,7 +78,7 @@ function App() {
           <Route path="/instructor/course/:id/students" element={<InsideCourseStudents />} />
         </Route>
 
-        {/* Magdy's Student Routes */}
+        {/* Student Routes */}
         <Route element={<ProtectedRoute allowedRoles={['student']} />}>
           <Route path="/student" element={<StudentDashboard />} />
           <Route path="/student/courses" element={<MyCoursesPage />} />
@@ -90,7 +92,7 @@ function App() {
           <Route path="/student/profile" element={<StudentProfilePage />} />
         </Route>
 
-        {/* Basel's Communication Routes — accessible to all authenticated roles */}
+        {/* Communication Routes — accessible to all authenticated roles */}
         <Route element={<ProtectedRoute allowedRoles={ALL_ROLES} />}>
           <Route path="/messages" element={<MessagesInboxPage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
