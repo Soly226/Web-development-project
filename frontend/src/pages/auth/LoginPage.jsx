@@ -122,25 +122,7 @@ const LoginPage = () => {
             </Button>
           </form>
 
-          <div className="relative my-10">
-            <div className="absolute inset-0 flex items-center">
-              <div className="w-full border-t border-white/5"></div>
-            </div>
-            <div className="relative flex justify-center text-[10px] font-black uppercase tracking-[0.2em]">
-              <span className="bg-[#0f172a] px-4 text-slate-500">Security Gate</span>
-            </div>
-          </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <Button variant="secondary" className="gap-3 py-3 rounded-xl border-white/5 hover:border-primary/30">
-              <img alt="Google" className="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-ZxrZ3_RbI0V0CKRR4knJqzDMT7qeb2tNZg5-DbIla4Hgnr74Lg2pdg_TkQv6igfVS427ZKoKs989fDG0O_BobsVXwLpHe_QzQPT0XxxqV55achX8eEe6XvWc8bQ-NcPeKLr1iYMgVBNVp4bB_qp96NRqFnJLsXxIB4uGIKllGO3hMItIwwPCjhRhN3wOVlumPygPJy8PKS57PO06TjSz7vlie9n23aDj9N3x2WJ3FKeaioP5QD8Gu3mY3ppXFKgJeUzl9KNZYvw"/>
-              <span className="text-xs font-bold tracking-wide">Google SSO</span>
-            </Button>
-            <Button variant="secondary" className="gap-3 py-3 rounded-xl border-white/5 hover:border-primary/30">
-              <img alt="LinkedIn" className="w-5 h-5" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCP7RCUL_Gbziw2fdgZ5OjuVO7CPfh642uaJcKTd2SnF2DlVqjuOtE76vQbek9PAfnLgTkUdJVdnlT--54IrgKIm0WLLZAIEBqtzsdAqjZ7O1OPTQtqa2yKe1NyBPjG0M0gtDvUx0NjriUZ4YYzcPO4CP55INKWGW8QsLDtpWmnn4H4SXIy9F22256sTfH5jZriyYsYzT2GT8K-S0MKTeDqQr57-lZc5MYb3UmLGWgBvaD0bxiyyIvZ1zHyXHjZjnz7F9H1Pj72z_4"/>
-              <span className="text-xs font-bold tracking-wide">LinkedIn</span>
-            </Button>
-          </div>
         </div>
 
         <div className="p-8 bg-slate-950/50 border-t border-white/5 text-center">
