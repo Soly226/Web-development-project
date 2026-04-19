@@ -15,9 +15,30 @@ const RegisterPage = () => {
     password: '',
     role: 'student'
   });
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    const newErrors = {};
+    if (formData.name.trim().length < 3) {
+      newErrors.name = 'Please enter your full name (min 3 characters)';
+    }
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Please enter a valid academic email address';
+    }
+    if (formData.password.length < 8) {
+      newErrors.password = 'Security choice must be at least 8 characters';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validate()) return;
+    
     login(formData.role);
     navigate(`/${formData.role}`);
   };
@@ -45,7 +66,11 @@ const RegisterPage = () => {
               id="name"
               placeholder="e.g. Jonathan Smith"
               value={formData.name}
-              onChange={(e) => setFormData({...formData, name: e.target.value})}
+              onChange={(e) => {
+                setFormData({...formData, name: e.target.value});
+                if (errors.name) setErrors({...errors, name: ''});
+              }}
+              error={errors.name}
               required
               className="bg-white/5 border-white/10 focus:bg-white/10"
             />
@@ -56,7 +81,11 @@ const RegisterPage = () => {
               type="email"
               placeholder="name@university.edu"
               value={formData.email}
-              onChange={(e) => setFormData({...formData, email: e.target.value})}
+              onChange={(e) => {
+                setFormData({...formData, email: e.target.value});
+                if (errors.email) setErrors({...errors, email: ''});
+              }}
+              error={errors.email}
               required
               className="bg-white/5 border-white/10 focus:bg-white/10"
             />
@@ -67,7 +96,11 @@ const RegisterPage = () => {
               type="password"
               placeholder="••••••••"
               value={formData.password}
-              onChange={(e) => setFormData({...formData, password: e.target.value})}
+              onChange={(e) => {
+                setFormData({...formData, password: e.target.value});
+                if (errors.password) setErrors({...errors, password: ''});
+              }}
+              error={errors.password}
               required
               className="bg-white/5 border-white/10 focus:bg-white/10"
             />

@@ -10,10 +10,31 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);
+
+  const validate = () => {
+    const newErrors = {};
+    if (!email) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(email)) {
+      newErrors.email = 'Please enter a valid academic email address';
+    }
+    
+    if (!password) {
+      newErrors.password = 'Password is required';
+    } else if (password.length < 6) {
+      newErrors.password = 'Password must be at least 6 characters';
+    }
+    
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validate()) return;
+    
     let role = 'student';
     if (email.includes('admin')) role = 'admin';
     if (email.includes('instructor')) role = 'instructor';
@@ -51,7 +72,11 @@ const LoginPage = () => {
               type="email"
               placeholder="e.g. administrator@educore.edu"
               value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={(e) => {
+                setEmail(e.target.value);
+                if (errors.email) setErrors({...errors, email: ''});
+              }}
+              error={errors.email}
               required
               className="bg-white/5 border-white/10 focus:bg-white/10"
             />
@@ -62,7 +87,11 @@ const LoginPage = () => {
               type={showPassword ? "text" : "password"}
               placeholder="••••••••"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                if (errors.password) setErrors({...errors, password: ''});
+              }}
+              error={errors.password}
               required
               className="bg-white/5 border-white/10 focus:bg-white/10"
               icon={

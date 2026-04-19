@@ -17,6 +17,12 @@ const SettingsSection = ({ title, icon, children }) => (
 );
 
 const SystemSettingsPage = () => {
+  const logoInputRef = React.useRef(null);
+
+  const handleSave = () => {
+    alert("Configuration changes saved successfully!");
+  };
+
   return (
     <AdminLayout title="System Configuration">
       <div className="p-5 max-w-4xl mx-auto space-y-8">
@@ -33,7 +39,7 @@ const SystemSettingsPage = () => {
             <Input label="Platform Name" placeholder="EduCore LMS" defaultValue="EduCore LMS" className="bg-white/5 border-white/10" />
             <div className="space-y-1.5">
               <label className="block text-slate-700 dark:text-slate-300 text-sm font-medium">Primary Language</label>
-              <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none">
+              <select className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-primary/20 outline-none">
                 <option>English (US)</option>
                 <option>Spanish</option>
                 <option>French</option>
@@ -47,7 +53,10 @@ const SystemSettingsPage = () => {
                 </div>
                 <div>
                   <p className="text-xs font-bold uppercase tracking-widest text-slate-400 mb-1">Upload New Logo</p>
-                  <Button variant="secondary" className="py-2 px-4 text-xs font-black">Replace Asset</Button>
+                  <input type="file" className="hidden" ref={logoInputRef} accept="image/*" />
+                  <Button variant="secondary" className="py-2 px-4 text-xs font-black" onClick={() => logoInputRef.current?.click()}>
+                    Replace Asset
+                  </Button>
                 </div>
               </div>
             </div>
@@ -70,7 +79,7 @@ const SystemSettingsPage = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="space-y-1.5">
                 <label className="block text-slate-700 dark:text-slate-300 text-sm font-medium">Session Timeout</label>
-                <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none">
+                <select className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-primary/20 outline-none">
                   <option>30 Minutes</option>
                   <option>1 Hour</option>
                   <option>4 Hours</option>
@@ -92,7 +101,7 @@ const SystemSettingsPage = () => {
         {/* Action Footer */}
         <div className="flex justify-end gap-3 pt-4 pb-10">
           <Button variant="secondary" className="px-8">Cancel Changes</Button>
-          <Button className="px-12 shadow-xl shadow-primary/30">Save Configuration</Button>
+          <Button className="px-12 shadow-xl shadow-primary/30" onClick={handleSave}>Save Configuration</Button>
         </div>
 
       </div>

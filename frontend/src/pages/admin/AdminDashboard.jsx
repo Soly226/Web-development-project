@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import AdminLayout from '../../layouts/AdminLayout';
 import Card from '../../components/ui/Card';
 import Button from '../../components/ui/Button';
@@ -27,6 +28,7 @@ const StatCard = ({ icon, label, value, trend, trendUp }) => (
 );
 
 const AdminDashboard = () => {
+  const navigate = useNavigate();
   const stats = [
     { icon: 'group', label: 'TOTAL USERS', value: '12,840', trend: '12.5%', trendUp: true },
     { icon: 'book_4', label: 'ACTIVE COURSES', value: '452', trend: '2.4%', trendUp: false },
@@ -60,9 +62,9 @@ const AdminDashboard = () => {
                 <h2 className="text-slate-900 dark:text-white font-bold tracking-tight">Active User Trends</h2>
                 <p className="text-[11px] text-slate-500 dark:text-slate-400 font-medium">Real-time engagement monitoring</p>
               </div>
-              <select className="text-[11px] bg-slate-100 dark:bg-slate-800 rounded-lg py-1.5 px-3 border-none focus:ring-2 focus:ring-primary/20 outline-none font-semibold">
-                <option>Last 7 days</option>
-                <option>Last 30 days</option>
+              <select className="text-[11px] bg-slate-100 dark:bg-slate-800 rounded-lg py-1.5 px-3 border-none focus:ring-2 focus:ring-primary/20 outline-none font-semibold text-slate-900 dark:text-white">
+                <option className="bg-white dark:bg-slate-900">Last 7 days</option>
+                <option className="bg-white dark:bg-slate-900">Last 30 days</option>
               </select>
             </div>
             
@@ -97,19 +99,19 @@ const AdminDashboard = () => {
           <section className="lg:col-span-1">
             <h2 className="text-slate-900 dark:text-white font-bold mb-4 px-1 text-sm tracking-tight">Quick Controls</h2>
             <div className="grid grid-cols-2 gap-3">
-              <button className="flex flex-col items-center gap-3 bg-gradient-to-br from-primary to-accent rounded-2xl p-4 text-white shadow-lg shadow-primary/20 transition-all hover:scale-[1.03] active:scale-[0.98] group">
+              <button onClick={() => navigate('/admin/users')} className="flex flex-col items-center gap-3 bg-gradient-to-br from-primary to-accent rounded-2xl p-4 text-white shadow-lg shadow-primary/20 transition-all hover:scale-[1.03] active:scale-[0.98] group">
                 <div className="p-2 bg-white/20 rounded-xl group-hover:rotate-12 transition-transform">
                   <span className="material-symbols-outlined text-2xl">person_add</span>
                 </div>
                 <span className="text-[11px] font-bold tracking-wide">Create User</span>
               </button>
-              <button className="flex flex-col items-center gap-3 glass rounded-2xl p-4 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 transition-all hover:scale-[1.03] active:scale-[0.98] group">
+              <button onClick={() => navigate('/admin/reports')} className="flex flex-col items-center gap-3 glass rounded-2xl p-4 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 transition-all hover:scale-[1.03] active:scale-[0.98] group">
                 <div className="p-2 bg-primary/10 rounded-xl group-hover:scale-110 transition-transform">
                   <span className="material-symbols-outlined text-primary text-2xl">assessment</span>
                 </div>
                 <span className="text-[11px] font-bold tracking-wide">Analytics</span>
               </button>
-              <button className="flex flex-col items-center gap-3 glass rounded-2xl p-4 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 transition-all hover:scale-[1.03] active:scale-[0.98] group col-span-2">
+              <button onClick={() => navigate('/admin/templates')} className="flex flex-col items-center gap-3 glass rounded-2xl p-4 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-white/10 transition-all hover:scale-[1.03] active:scale-[0.98] group col-span-2">
                 <div className="flex items-center gap-3">
                   <div className="p-2 bg-primary/10 rounded-xl">
                     <span className="material-symbols-outlined text-primary text-2xl">mail</span>
@@ -127,7 +129,7 @@ const AdminDashboard = () => {
           <section className="lg:col-span-2">
             <div className="flex items-center justify-between mb-4 px-1">
               <h2 className="text-slate-900 dark:text-white font-bold text-sm tracking-tight">Recent Activity</h2>
-              <Button variant="ghost" className="text-[10px] py-1 px-3">View Full Log</Button>
+              <Button variant="ghost" className="text-[10px] py-1 px-3" onClick={() => navigate('/admin/logs')}>View Full Log</Button>
             </div>
             <div className="flex flex-col gap-3">
               {recentLogs.map((log, i) => (

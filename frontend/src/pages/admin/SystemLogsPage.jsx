@@ -7,6 +7,8 @@ import { twMerge } from 'tailwind-merge';
 
 const SystemLogsPage = () => {
   const [search, setSearch] = useState('');
+  const [filterLevel, setFilterLevel] = useState('All Levels');
+  const [filterCategory, setFilterCategory] = useState('All Categories');
   
   const logs = [
     { id: 1, time: '2023-10-24 14:22:10', level: 'Error', category: 'Auth', message: 'Failed login attempt: multiple incorrect passwords.', user: 'john.doe@edu.com' },
@@ -29,6 +31,17 @@ const SystemLogsPage = () => {
     );
   };
 
+  const filteredLogs = logs.filter(log => {
+    const matchesSearch = search === '' || 
+      log.message.toLowerCase().includes(search.toLowerCase()) || 
+      log.user.toLowerCase().includes(search.toLowerCase());
+    
+    const matchesLevel = filterLevel === 'All Levels' || log.level === filterLevel;
+    const matchesCategory = filterCategory === 'All Categories' || log.category === filterCategory;
+
+    return matchesSearch && matchesLevel && matchesCategory;
+  });
+
   return (
     <AdminLayout title="System Audit Logs">
       <div className="p-5 max-w-6xl mx-auto space-y-6">
@@ -48,7 +61,11 @@ const SystemLogsPage = () => {
           <div className="flex gap-3 w-full md:w-auto">
             <div className="flex-1">
               <label className="text-xs font-bold text-slate-500 mb-2 block uppercase tracking-wider">Level</label>
-              <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none">
+              <select 
+                value={filterLevel}
+                onChange={(e) => setFilterLevel(e.target.value)}
+                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-primary/20 outline-none"
+              >
                 <option>All Levels</option>
                 <option>Info</option>
                 <option>Warning</option>
@@ -57,7 +74,11 @@ const SystemLogsPage = () => {
             </div>
             <div className="flex-1">
               <label className="text-xs font-bold text-slate-500 mb-2 block uppercase tracking-wider">Category</label>
-              <select className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary/20 outline-none">
+              <select 
+                value={filterCategory}
+                onChange={(e) => setFilterCategory(e.target.value)}
+                className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/10 rounded-xl px-4 py-3 text-sm text-slate-900 dark:text-white focus:ring-2 focus:ring-primary/20 outline-none"
+              >
                 <option>All Categories</option>
                 <option>Auth</option>
                 <option>Course</option>
@@ -65,7 +86,7 @@ const SystemLogsPage = () => {
               </select>
             </div>
           </div>
-          <Button className="w-full md:w-auto px-8">Filter</Button>
+          <Button className="w-full md:w-auto px-8" onClick={() => alert(`Exporting ${filteredLogs.length} logs to CSV...`)}>Export CSV</Button>
         </Card>
 
         {/* Logs Table */}
@@ -82,7 +103,7 @@ const SystemLogsPage = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
-                {logs.map((log) => (
+                {filteredLogs.map((log) => (
                   <tr key={log.id} className="hover:bg-primary/5 transition-colors group">
                     <td className="px-6 py-4 whitespace-nowrap text-xs font-medium text-slate-400">{log.time}</td>
                     <td className="px-6 py-4 whitespace-nowrap">{getLevelBadge(log.level)}</td>
@@ -106,10 +127,10 @@ const SystemLogsPage = () => {
           
           {/* Pagination */}
           <div className="px-6 py-4 bg-white/5 border-t border-white/10 flex items-center justify-between">
-            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Showing 1-5 of 1,240 results</p>
+            <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Showing {filteredLogs.length} results</p>
             <div className="flex gap-2">
               <Button variant="secondary" className="py-2 px-4 text-xs" disabled>Previous</Button>
-              <Button className="py-2 px-4 text-xs">Next</Button>
+              <Button onClick={() => alert("No more pages available.")} className="py-2 px-4 text-xs">Next</Button>
             </div>
           </div>
         </Card>
